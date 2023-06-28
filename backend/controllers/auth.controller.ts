@@ -1,10 +1,40 @@
+import { Response } from "express";
+import { authRequest } from "../utils/routeParam";
 import { User } from "../models/auth.model";
-import express from "express";
+import sequelize from "../config/db.config";
 
-const router = express.Router()
 
-router.get("/", (req, res) => {
-    res.json({ message: "Welcome to login page"});
-})
+export const register = (req: authRequest, res: Response) => {
+    sequelize.sync().then(() => {
+        console.log('User Table created successfully!');
+        // User.create({
+        //     userName: req.username,
+        //     password: req.password,
+        // }).then(res => {
+        //     console.log(res)
+        // }).catch((error) => {
+        //     console.error('Failed to create a new record : ', error);
+        // });
+        res.json({ message: "Welcome to register page"});
+     
+     }).catch((error) => {
+        console.error('Unable to create table : ', error);
+     });
+}
 
-export default router;
+export const login = (req, res) => {
+    sequelize.sync().then(() => {
+        console.log('User Table created successfully!');
+        // User.create({
+        //     userName: "Clean Code",
+        //     password: "Robert Cecil Martin",
+        // }).then(res => {
+        //     console.log(res)
+        // }).catch((error) => {
+        //     console.error('Failed to create a new record : ', error);
+        // });
+        res.json({ message: "Welcome to login page"});
+     }).catch((error) => {
+        console.error('Unable to create table : ', error);
+     });
+}

@@ -1,13 +1,10 @@
 import express from "express";
+import { register, login } from "../controllers/auth.controller";
 
 const authRoutes = express.Router()
 
-authRoutes.get("/login", (req, res) => {
-    res.json({ message: "Welcome to login page"});
-})
+authRoutes.get("/login", login);
 
-authRoutes.get("/register", (req, res) => {
-    res.json({ message: "Welcome to register page"});
-})
+authRoutes.get("/register", register)
 
 export default authRoutes;

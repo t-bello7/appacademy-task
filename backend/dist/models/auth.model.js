@@ -1,9 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const sequelize_1 = require("sequelize");
-const sequelize = new sequelize_1.Sequelize('postgresql://todo_user:todo_user@localhost:5432/todo_database');
-exports.User = sequelize.define('User', {
+const db_config_1 = __importDefault(require("../config/db.config"));
+exports.User = db_config_1.default.define('User', {
     userName: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
@@ -12,10 +15,5 @@ exports.User = sequelize.define('User', {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     }
-});
-sequelize.sync().then(() => {
-    console.log('Book table created successfully!');
-}).catch((error) => {
-    console.error('Unable to create table : ', error);
 });
 //# sourceMappingURL=auth.model.js.map

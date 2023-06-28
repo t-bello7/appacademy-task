@@ -1,6 +1,5 @@
-import { DataTypes, Sequelize } from 'sequelize';
-
-const sequelize = new Sequelize('postgresql://todo_user:todo_user@localhost:5432/todo_database')
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/db.config';
 
 export const User = sequelize.define('User',{
 	userName: {
@@ -12,9 +11,3 @@ export const User = sequelize.define('User',{
 		allowNull: false
 	}
 })
-
-sequelize.sync().then(() => {
-	console.log('Book table created successfully!');
- }).catch((error) => {
-	console.error('Unable to create table : ', error);
- });

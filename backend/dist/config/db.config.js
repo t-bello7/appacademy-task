@@ -22,4 +22,5 @@ const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.connectDB = connectDB;
+exports.default = sequelize;
 //# sourceMappingURL=db.config.js.map

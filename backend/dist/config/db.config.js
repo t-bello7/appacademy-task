@@ -11,8 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectDB = void 0;
 const sequelize_1 = require("sequelize");
-console.log(process.env.DATABASE_URL);
-const sequelize = new sequelize_1.Sequelize(process.env.DATABASE_URL);
+const sequelize = new sequelize_1.Sequelize(`${process.env.DATABASE_URL}`);
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield sequelize.authenticate();

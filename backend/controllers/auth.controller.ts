@@ -1,8 +1,7 @@
 import { Response } from "express";
-import { authRequest } from "../utils/routeParam";
 import { User } from "../models/auth.model";
 import sequelize from "../config/db.config";
-
+import { authRequest } from "../utils/routeParam";
 
 export const register = (req: authRequest, res: Response) => {
     sequelize.sync().then(() => {

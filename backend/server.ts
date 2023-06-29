@@ -1,5 +1,6 @@
 import express, {Express, Request, Response} from "express";
 import bodyParser from "body-parser";
+import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./config/db.config";
 import authRoutes from "./routes/auth.routes";
@@ -7,6 +8,7 @@ import taskRoutes from "./routes/task.routes";
 
 const app: Express = express();
 connectDB();
+dotenv.config();
 
 const corsOptions = {
 	origin: "http://localhost:5000"
@@ -26,7 +28,6 @@ app.use('/api/auth',authRoutes);
 app.use('/api/tasks', taskRoutes);
 
 const PORT = process.env.PORT || 8080;
-
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);
 });

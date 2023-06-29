@@ -5,12 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
+const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const db_config_1 = require("./config/db.config");
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const task_routes_1 = __importDefault(require("./routes/task.routes"));
 const app = (0, express_1.default)();
 (0, db_config_1.connectDB)();
+dotenv_1.default.config();
 const corsOptions = {
     origin: "http://localhost:5000"
 };
@@ -23,6 +25,7 @@ app.get("/", (req, res) => {
 app.use('/api/auth', auth_routes_1.default);
 app.use('/api/tasks', task_routes_1.default);
 const PORT = process.env.PORT || 8080;
+console.log(process.env);
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

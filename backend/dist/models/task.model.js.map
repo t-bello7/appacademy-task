@@ -1,1 +1,1 @@
-{"version":3,"file":"task.model.js","sourceRoot":"","sources":["../../models/task.model.ts"],"names":[],"mappings":""}
+{"version":3,"file":"task.model.js","sourceRoot":"","sources":["../../models/task.model.ts"],"names":[],"mappings":";;;;;;AAAA,yCAAsC;AACtC,oEAA4C;AAE/B,QAAA,IAAI,GAAG,mBAAS,CAAC,MAAM,CAAC,MAAM,EAAC;IAC3C,MAAM,EAAE;QACP,IAAI,EAAE,qBAAS,CAAC,MAAM;QACtB,SAAS,EAAE,KAAK;KAChB;IACE,QAAQ,EAAE;QACZ,IAAI,EAAE,qBAAS,CAAC,MAAM;QACtB,SAAS,EAAE,KAAK;KAChB;CACD,CAAC,CAAA"}

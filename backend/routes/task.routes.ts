@@ -1,18 +1,20 @@
 import express from "express";
 import {
-    getTasks,
+    getTask,
+    getAllTask,
     createTask,
     updateTask,
     deleteTask,
-    deleteTasks,
+    deleteAllTask,
 } from "../controllers/task.controller";
 
 const taskRoutes = express.Router()
 
-taskRoutes.get("/", getTasks);
+taskRoutes.get("/", getAllTask);
 taskRoutes.post("/", createTask);
+taskRoutes.get("/:id", getTask);
 taskRoutes.put("/:id", updateTask);
 taskRoutes.delete("/:id", deleteTask);
-taskRoutes.delete("/", deleteTasks);
+taskRoutes.delete("/", deleteAllTask);
 
 export default taskRoutes;

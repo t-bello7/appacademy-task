@@ -1,15 +1,12 @@
 import { Response } from "express";
-import User from "../models/auth.model";
-import sequelize from "../config/db.config";
 import { authRequest } from "../utils/routeParam";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { find, create, findOrCreate } from "../dal/auth.dal";
+import { find, create } from "../dal/auth.dal";
 
 export const register = async (req: authRequest, res: Response) => {
    try {
    let user = await find(req.body)
-   console.log(user)
    if (user) {
       return res.status(400).send({
          message: 'User already exist'

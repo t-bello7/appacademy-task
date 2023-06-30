@@ -19,7 +19,6 @@ const auth_dal_1 = require("../dal/auth.dal");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let user = yield (0, auth_dal_1.find)(req.body);
-        console.log(user);
         if (user) {
             return res.status(400).send({
                 message: 'User already exist'

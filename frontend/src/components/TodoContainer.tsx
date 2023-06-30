@@ -9,7 +9,7 @@ const TodoContainer = () => {
         const dataFetch = async () => {
             const data = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
                 headers:{
-                    "x-access-token": JSON.parse(user).token
+                    "x-access-token": JSON.parse(user as string).token
                 }
             });
             const userData = await data.json();

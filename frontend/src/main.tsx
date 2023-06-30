@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Home />,
     errorElement: <Error />,
-    loader: async ({ request }) => {
+    loader: async () => {
       const user = localStorage.getItem("userData");
       if (!user) {
         throw redirect("/login");

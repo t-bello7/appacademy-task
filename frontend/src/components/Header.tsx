@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({
+        userName: ''
+    })
     const navigate = useNavigate();
     useEffect(() => {
         const userData = localStorage.getItem("userData");

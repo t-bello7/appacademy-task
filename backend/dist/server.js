@@ -13,7 +13,7 @@ const db_config_1 = require("./config/db.config");
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const task_routes_1 = __importDefault(require("./routes/task.routes"));
 const init_1 = __importDefault(require("./models/init"));
-const auth_1 = require("./middleware/auth");
+const auth_middleware_1 = require("./middleware/auth.middleware");
 const app = (0, express_1.default)();
 (0, db_config_1.connectDB)();
 (0, init_1.default)();
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to todo application." });
 });
 app.use('/api/auth', auth_routes_1.default);
-app.use('/api/tasks', auth_1.verifyToken, task_routes_1.default);
+app.use('/api/tasks', auth_middleware_1.verifyToken, task_routes_1.default);
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

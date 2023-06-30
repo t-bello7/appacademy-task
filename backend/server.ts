@@ -8,7 +8,7 @@ import { connectDB } from "./config/db.config";
 import authRoutes from "./routes/auth.routes";
 import taskRoutes from "./routes/task.routes";
 import dbInit from "./models/init";
-import { verifyToken } from "./middleware/auth";
+import { verifyToken } from "./middleware/auth.middleware";
 
 const app: Express = express();
 connectDB();

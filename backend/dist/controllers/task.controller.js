@@ -22,8 +22,9 @@ const createTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.createTask = createTask;
 const updateTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = Number(req.params.id);
+    console.log(req.body);
     const updatedTask = yield (0, task_dal_1.update)(id, req.body);
-    return res.status(201).send(exports.updateTask);
+    return res.status(201).send(updatedTask);
 });
 exports.updateTask = updateTask;
 const deleteTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

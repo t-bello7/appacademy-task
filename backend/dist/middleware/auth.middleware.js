@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
     }
     try {
         const decoded = jsonwebtoken_1.default.verify(token, tokenKey);
-        req.body = decoded;
+        req.body = req.body;
     }
     catch (err) {
         return res.status(401).send("Invalid Token");

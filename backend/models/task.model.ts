@@ -34,10 +34,13 @@ Task.init({
 		allowNull: false
 	},
 	isComplete: {
-		type: DataTypes.BOOLEAN
+		type: DataTypes.BOOLEAN,
+		defaultValue: false
+
 	},
 	isArchived: {
-		type: DataTypes.BOOLEAN
+		type: DataTypes.BOOLEAN,
+		defaultValue: false
 	}
 }, {
 	timestamps: true,

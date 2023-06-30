@@ -9,8 +9,9 @@ export const createTask = async (req: Request, res: Response) => {
 
 export const updateTask = async (req: Request, res: Response) => {
    const id = Number(req.params.id);
+   console.log(req.body)
    const updatedTask = await update(id, req.body);
-   return res.status(201).send(updateTask);
+   return res.status(201).send(updatedTask);
 }
 
 export const deleteTask = async (req: Request, res: Response) => {

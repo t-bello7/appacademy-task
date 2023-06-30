@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { redirect } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import AuthLayout from "../layouts/authLayout"
 
 const Register = () => {
     const [error, setError] = useState<any>([])
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         userName: '',
         password: '',
@@ -36,7 +37,7 @@ const Register = () => {
             }
             if (userData.status === 200) {
                 // pass the param of user 
-                return redirect("/login");
+                return navigate("/login");
             }
           
         } catch (err) {

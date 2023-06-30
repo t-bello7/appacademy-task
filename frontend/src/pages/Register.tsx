@@ -4,26 +4,22 @@ import AuthLayout from "../layouts/authLayout"
 
 const Register = () => {
     const [error, setError] = useState<any>([])
-
     const [formData, setFormData] = useState({
         userName: '',
         password: '',
         confirm_password: '',
     })
-
-
     const handleChange = (e: any) => {
         setFormData({... formData, 
             [e.target.name]: e.target.value
         })
     }
-
-
     const handleSubmit = async (e: any) => {
         e.preventDefault()   
         setError([])
         if (formData.confirm_password !== formData.password) {
             setError(["Password don't match"])
+            return false
         }
         try {
             const userData = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
@@ -33,7 +29,6 @@ const Register = () => {
                 },
                 body: JSON.stringify(formData)
             });
-            // console.log(userData.status);
             const result = await userData.json()
             
             if (userData.status === 200) {

@@ -35,7 +35,7 @@ export const login = async (req, res: Response) => {
          const user = await find(req.body)
          if (!user) {
             return res.status(400).send({
-               message: "User not found"
+               message: "Invalid Credentials"
             });
          }
          const passwordIsValid = bcrypt.compareSync(
@@ -47,7 +47,7 @@ export const login = async (req, res: Response) => {
           })
           if (!passwordIsValid) {
             return res.status(401).send({
-              message: "Invalid Password!",
+              message: "Invalid Credentials",
             });
           }
          req.session.token = token;

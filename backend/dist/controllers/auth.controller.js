@@ -48,7 +48,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield (0, auth_dal_1.find)(req.body);
         if (!user) {
             return res.status(400).send({
-                message: "User not found"
+                message: "Invalid Credentials"
             });
         }
         const passwordIsValid = bcrypt_1.default.compareSync(req.body.password, user.password);
@@ -57,7 +57,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         if (!passwordIsValid) {
             return res.status(401).send({
-                message: "Invalid Password!",
+                message: "Invalid Credentials",
             });
         }
         req.session.token = token;

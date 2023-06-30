@@ -1,42 +1,86 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.register = void 0;
-const db_config_1 = __importDefault(require("../config/db.config"));
-const register = (req, res) => {
-    db_config_1.default.sync().then(() => {
-        console.log('User Table created successfully!');
-        // User.create({
-        //     userName: req.username,
-        //     password: req.password,
-        // }).then(res => {
-        //     console.log(res)
-        // }).catch((error) => {
-        //     console.error('Failed to create a new record : ', error);
-        // });
-        res.json({ message: "Welcome to register page" });
-    }).catch((error) => {
-        console.error('Unable to create table : ', error);
-    });
-};
+exports.logout = exports.login = exports.register = void 0;
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const auth_dal_1 = require("../dal/auth.dal");
+const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    try {
+        let user = yield (0, auth_dal_1.find)(req.body);
+        console.log(user);
+        if (user) {
+            return res.status(400).send({
+                message: 'User already exist'
+            });
+        }
+        if (req.body.password != req.body.confirm_password) {
+            return res.status(400).send({
+                message: 'Password does not match'
+            });
+        }
+        yield (0, auth_dal_1.create)({
+            userName: req.body.userName,
+            password: bcrypt_1.default.hashSync(req.body.password, 8),
+        });
+        return res.status(200).send({ message: "User created successfully" });
+    }
+    catch (error) {
+        return res.status(500).send({
+            message: "Failed to create user",
+            error: error
+        });
+    }
+});
 exports.register = register;
-const login = (req, res) => {
-    db_config_1.default.sync().then(() => {
-        console.log('User Table created successfully!');
-        // User.create({
-        //     userName: "Clean Code",
-        //     password: "Robert Cecil Martin",
-        // }).then(res => {
-        //     console.log(res)
-        // }).catch((error) => {
-        //     console.error('Failed to create a new record : ', error);
-        // });
-        res.json({ message: "Welcome to login page" });
-    }).catch((error) => {
-        console.error('Unable to create table : ', error);
-    });
-};
+const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield (0, auth_dal_1.find)(req.body);
+        if (!user) {
+            return res.status(400).send({
+                message: "User not found"
+            });
+        }
+        const passwordIsValid = bcrypt_1.default.compareSync(req.body.password, user.password);
+        const token = jsonwebtoken_1.default.sign({ userName: user.userName }, "dwefwc", {
+            expiresIn: 86400
+        });
+        console.log(token);
+        if (!passwordIsValid) {
+            return res.status(401).send({
+                message: "Invalid Password!",
+            });
+        }
+        //  req.session.token = token;
+        return res.status(200).send({ userName: user.userName });
+    }
+    catch (error) {
+        return res.status(500).send({ message: error.message });
+    }
+});
 exports.login = login;
+const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        req.session = null;
+        return res.status(200).send({
+            message: "Signed out"
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.logout = logout;
 //# sourceMappingURL=auth.controller.js.map

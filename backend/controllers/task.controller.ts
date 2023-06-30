@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Task } from "../models/task.model";
+import { Task } from "../models";
 import sequelize from "../config/db.config";
 
 export const getTasks = (req: Request, res: Response) => {

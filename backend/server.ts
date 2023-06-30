@@ -5,9 +5,11 @@ import cors from "cors";
 import { connectDB } from "./config/db.config";
 import authRoutes from "./routes/auth.routes";
 import taskRoutes from "./routes/task.routes";
+import dbInit from "./models/init";
 
 const app: Express = express();
 connectDB();
+dbInit();
 
 const corsOptions = {
 	origin: "http://localhost:5000"

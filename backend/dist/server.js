@@ -10,8 +10,10 @@ const cors_1 = __importDefault(require("cors"));
 const db_config_1 = require("./config/db.config");
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const task_routes_1 = __importDefault(require("./routes/task.routes"));
+const init_1 = __importDefault(require("./models/init"));
 const app = (0, express_1.default)();
 (0, db_config_1.connectDB)();
+(0, init_1.default)();
 const corsOptions = {
     origin: "http://localhost:5000"
 };

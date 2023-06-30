@@ -4,22 +4,20 @@ import { ReactComponent as DragIcon } from '../assets/icons/dragIcon.svg'
 import { ReactComponent as DeleteIcon } from '../assets/icons/deletIcon.svg'
 
 const TodoItem = ({todo}: any) => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(todo.isComplete);
   const user = localStorage.getItem("userData");
-
-  const checkboxhandler = async (e: any) => {
-    setChecked(!checked);
+    const checkboxhandler = async (e: any) => {
+    setChecked(e.target.checked);
     await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/${todo.id}`, {
       method: "PATCH", 
       headers:{
           "Content-Type": "application/json",
           "x-access-token": JSON.parse(user as string).token
       },
-      body: JSON.stringify({isComplete: checked})
+      body: JSON.stringify({isComplete: !checked})
     })
   } 
-
-  const handleDeleteTask  = async (e: any) => {
+  const handleDeleteTask  = async () => {
       await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/${todo.id}`, {
       method: "DELETE",
       headers:{
@@ -28,7 +26,6 @@ const TodoItem = ({todo}: any) => {
       }
     })
   }
-
   useEffect(() => {
     setChecked(todo.isComplete)
   },[])
@@ -44,7 +41,6 @@ const TodoItem = ({todo}: any) => {
         type='checkbox'
         className='h-4 w-4 md:h-7 md:w-7 mt-auto mb-auto mr-2 ml-2 rounded-full text-[#4d3434] focus:ring-[#757575]'
         id={todo.id}
-        value={checked}
         checked={checked}
         onChange={checkboxhandler}
       />

@@ -8,5 +8,4 @@ const dbInit = () => Promise.all([
     Task.sync({alter: isDev})
 ])   
 
-
 export default dbInit;

@@ -13,8 +13,9 @@ const app: Express = express();
 connectDB();
 dbInit();
 
-const whitelist = [process.env.FRONTEND_DEV_URL, process.env.FRONTEND_PROD_URL]
 
+const whitelist = [`${process.env.FRONTEND_DEV_URL}`, `${process.env.FRONTEND_PROD_URL}`]
+console.log(whitelist)
 const corsOptions = {
 	origin: whitelist
 };

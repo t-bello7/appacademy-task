@@ -10,7 +10,7 @@ export const register = async (req: authRequest, res: Response) => {
    if (user) {
       return res.status(400).send({
          message: 'User already exist'
-      })  
+      })
    }
    if (req.body.password != req.body.confirm_password) {
    return res.status(400).send({

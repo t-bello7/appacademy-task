@@ -16,7 +16,8 @@ const init_1 = __importDefault(require("./models/init"));
 const app = (0, express_1.default)();
 (0, db_config_1.connectDB)();
 (0, init_1.default)();
-const whitelist = [process.env.FRONTEND_DEV_URL, process.env.FRONTEND_PROD_URL];
+const whitelist = [`${process.env.FRONTEND_DEV_URL}`, `${process.env.FRONTEND_PROD_URL}`];
+console.log(whitelist);
 const corsOptions = {
     origin: whitelist
 };

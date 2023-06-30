@@ -18,10 +18,12 @@ Task.init({
         allowNull: false
     },
     isComplete: {
-        type: sequelize_1.DataTypes.BOOLEAN
+        type: sequelize_1.DataTypes.BOOLEAN,
+        defaultValue: false
     },
     isArchived: {
-        type: sequelize_1.DataTypes.BOOLEAN
+        type: sequelize_1.DataTypes.BOOLEAN,
+        defaultValue: false
     }
 }, {
     timestamps: true,

@@ -13,7 +13,7 @@ const taskRoutes = express.Router()
 taskRoutes.get("/", getAllTask);
 taskRoutes.post("/", createTask);
 taskRoutes.get("/:id", getTask);
-taskRoutes.put("/:id", updateTask);
+taskRoutes.patch("/:id", updateTask);
 taskRoutes.delete("/:id", deleteTask);
 taskRoutes.delete("/", deleteAllTask);
 

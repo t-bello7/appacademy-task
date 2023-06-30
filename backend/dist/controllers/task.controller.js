@@ -1,48 +1,58 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTasks = exports.deleteTask = exports.updateTask = exports.createTask = exports.getTasks = void 0;
+exports.getTask = exports.getAllTask = exports.deleteAllTask = exports.deleteTask = exports.updateTask = exports.createTask = void 0;
 const db_config_1 = __importDefault(require("../config/db.config"));
-const getTasks = (req, res) => {
-    db_config_1.default.sync().then(() => {
-        res.json({ message: "getAllTask" });
-    }).catch((error) => {
-        console.error('Unable to create table : ', error);
-    });
-};
-exports.getTasks = getTasks;
-const createTask = (req, res) => {
-    db_config_1.default.sync().then(() => {
-        res.json({ message: "create tasks" });
-    }).catch((error) => {
-        console.error('Unable to create table : ', error);
-    });
-};
+const task_dal_1 = require("../dal/task.dal");
+const createTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const task = yield (0, task_dal_1.create)(req.body);
+    return res.status(200).send(task);
+});
 exports.createTask = createTask;
-const updateTask = (req, res) => {
-    db_config_1.default.sync().then(() => {
-        res.json({ message: "update Tasks" });
-    }).catch((error) => {
-        console.error('Unable to create table : ', error);
-    });
-};
+const updateTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = Number(req.params.id);
+    console.log(req.body);
+    const updatedTask = yield (0, task_dal_1.update)(id, req.body);
+    return res.status(201).send(updatedTask);
+});
 exports.updateTask = updateTask;
-const deleteTask = (req, res) => {
-    db_config_1.default.sync().then(() => {
-        res.json({ message: "delete task" });
-    }).catch((error) => {
-        console.error('Unable to create table : ', error);
+const deleteTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = Number(req.params.id);
+    const result = yield (0, task_dal_1.deleteById)(id);
+    return res.status(204).send({
+        success: result
     });
-};
+});
 exports.deleteTask = deleteTask;
-const deleteTasks = (req, res) => {
+const deleteAllTask = (req, res) => {
     db_config_1.default.sync().then(() => {
         res.json({ message: "delete all tasks by created user " });
     }).catch((error) => {
         console.error('Unable to create table : ', error);
     });
 };
-exports.deleteTasks = deleteTasks;
+exports.deleteAllTask = deleteAllTask;
+const getAllTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const filters = req.query;
+    const tasks = yield (0, task_dal_1.getAll)(filters);
+    return res.status(200).send(tasks);
+});
+exports.getAllTask = getAllTask;
+const getTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = Number(req.params.id);
+    const task = yield (0, task_dal_1.getById)(id);
+    return res.status(200).send(task);
+});
+exports.getTask = getTask;
 //# sourceMappingURL=task.controller.js.map

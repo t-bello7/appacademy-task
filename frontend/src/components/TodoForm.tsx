@@ -1,16 +1,42 @@
+import { useState } from "react"
 import { ReactComponent as AddIcon } from "../assets/icons/addIcon.svg"
 
 const TodoForm = () => {
+    const [todoText, setTodoText] = useState("")
+
+    const handleChange = (e: any) => {
+        setTodoText(e.target.value)
+    }
+    
+    const handleClick = async () => {
+        try {
+            const user = localStorage.getItem("userData");
+            const result = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-access-token": JSON.parse(user as string).token
+                },
+                body: JSON.stringify({todoText})
+            });
+            const task = await result.json()
+            console.log(task);
+        } catch (err) {
+            console.log("Error", err);
+        } 
+    }
     return(
         <div className="flex justify-between">
             <div>
                 <h1> Today's Task </h1>
                 <span> Wedneday, 11 May </span>
             </div>
-            <button className="flex items-center">
+
+            <input name="todoText" value={todoText} onChange={handleChange} placeholder="Enter you new text"/>
+            <button onClick={handleClick} className="flex items-center">
                 <AddIcon />
                 <span>
-                    New Todo
+                    Add Todo
                 </span>
             </button>
         </div>

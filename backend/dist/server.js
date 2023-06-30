@@ -17,10 +17,17 @@ const auth_middleware_1 = require("./middleware/auth.middleware");
 const app = (0, express_1.default)();
 (0, db_config_1.connectDB)();
 (0, init_1.default)();
+const allowCrossDomain = (req, res, next) => {
+    res.header(`Access-Control-Allow-Origin`, `${process.env.FRONTEND_PROD_URL}`);
+    res.header(`Access-Control-Allow-Methods`, `GET,PATCH,POST,DELETE`);
+    res.header(`Access-Control-Allow-Headers`, `Content-Type`);
+    next();
+};
 const whitelist = [`${process.env.FRONTEND_DEV_URL}`, `${process.env.FRONTEND_PROD_URL}`];
 const corsOptions = {
     origin: whitelist
 };
+app.use(allowCrossDomain);
 app.use((0, cors_1.default)(corsOptions));
 app.use((0, express_session_1.default)({
     secret: process.env.TOKEN_KEY,

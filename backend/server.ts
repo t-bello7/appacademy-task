@@ -1,4 +1,4 @@
-import express, {Express, Request, Response} from "express";
+import express, {Express, NextFunction, Request, Response} from "express";
 import bodyParser from "body-parser";
 import 'dotenv/config';
 import cookieParser from "cookie-parser";
@@ -14,11 +14,19 @@ const app: Express = express();
 connectDB();
 dbInit();
 
+const allowCrossDomain = (req: Request, res: Response, next: NextFunction) => {
+    res.header(`Access-Control-Allow-Origin`, `${process.env.FRONTEND_PROD_URL}`);
+    res.header(`Access-Control-Allow-Methods`, `GET,PATCH,POST,DELETE`);
+    res.header(`Access-Control-Allow-Headers`, `Content-Type`);
+    next();
+  };
+  
 const whitelist = [`${process.env.FRONTEND_DEV_URL}`, `${process.env.FRONTEND_PROD_URL}`]
 const corsOptions = {
 	origin: whitelist
 };
 
+app.use(allowCrossDomain);
 app.use(cors(corsOptions));
 
 app.use(sessions({

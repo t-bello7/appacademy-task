@@ -11,8 +11,6 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
   }
   try {
     const decoded = jwt.verify(token, tokenKey);
-    res.setHeader('Access-Control-Allow-Credentials', "*");
-    res.setHeader('Access-Control-Allow-Origin', '*');
     req.body = req.body;
   } catch (err) {
     return res.status(401).send("Invalid Token");

@@ -13,6 +13,7 @@ const verifyToken = (req, res, next) => {
     }
     try {
         const decoded = jsonwebtoken_1.default.verify(token, tokenKey);
+        res.setHeader('Access-Control-Allow-Credentials', "*");
         req.body = req.body;
     }
     catch (err) {

@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { redirect } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import AuthLayout from "../layouts/authLayout"
 
 const Login = () => {
     const [error, setError] = useState<any>([])
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         userName: '',
         password: '',
@@ -26,12 +27,10 @@ const Login = () => {
             const result = await userData.json()
             
             if (userData.status === 200) {
-                // pass the param of user 
                 localStorage.setItem("userData", JSON.stringify(result))
-                return redirect("/register");
-            }
+                navigate("/");
+                }
             setError(["Invalid Credentials"])
-            // return false
         } catch (err) {
             console.log("Error", err);
         } 

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { redirect } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
     const [user, setUser] = useState({})
+    const navigate = useNavigate();
     useEffect(() => {
         const userData = localStorage.getItem("userData");
         if (userData) {
@@ -18,12 +19,13 @@ const Header = () => {
             },
         })
         localStorage.removeItem("userData");
-        return redirect('/login')
+        return navigate('/login')
     }
 
         return (
     <div className="grid justify-items-center">
-        <h1 className="underline underline-offset-8 decoration-8"> Today's Task </h1>
+        <h1 className="underline underline-offset-8 decoration-8"> Today's Task </h1>\
+            <input name="todoText" className="bg-dark" />
         <div>
             <h2>{user?.userName}</h2>
             <button onClick={handleLogout} type="button"> Logout</button>

@@ -21,34 +21,16 @@ const router = createBrowserRouter([
       if (!user) {
         throw redirect("/login");
       }
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
-        signal: request.signal,
-      });
-      const tasks = await res.json();
-      return tasks;
+   return user
   }
   },
   {
     path: "/login",
-    element: <Login />,
-    loader: async () => {
-      const user = localStorage.getItem("userData");
-      if (user) {
-        return redirect("/")
-      }
-      return(user)
-    }
+    element: <Login />
   },
   {
     path: "/register",
-    element: <Register />,
-    loader: async () => {
-      const user = localStorage.getItem("userData");
-      if (user) {
-        return redirect("/")
-      }
-      return(user)
-    }
+    element: <Register />
   }
 ])
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

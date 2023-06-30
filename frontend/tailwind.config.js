@@ -11,11 +11,6 @@ export default {
       lg: '976px',
       xl: '1440px',
     },
-    colors: {
-      // transparent: 'transparent',
-      // white: 'hsl(0, 0%, 100%)',
-      // 
-    },
     fontFamily: {
       sans: ["DM Sans"],
       satoshi: ["Satoshi", "sans-seriff"],

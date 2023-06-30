@@ -1,43 +1,42 @@
 import { Request, Response } from "express";
-import { Task } from "../models/task.model";
 import sequelize from "../config/db.config";
+import { create, update, getById, deleteById, getAll } from "../dal/task.dal";
 
-export const getTasks = (req: Request, res: Response) => {
-    sequelize.sync().then(() => {
-        res.json({ message: "getAllTask"});
-     }).catch((error) => {
-        console.error('Unable to create table : ', error);
-     });
+export const createTask = async (req: Request, res: Response) => {
+   const task = await create(req.body)
+   return res.status(200).send(task);
 }
 
-export const createTask = (req: Request, res: Response) => {
-    sequelize.sync().then(() => {
-        res.json({ message: "create tasks"});
-     }).catch((error) => {
-        console.error('Unable to create table : ', error);
-     });
+export const updateTask = async (req: Request, res: Response) => {
+   const id = Number(req.params.id);
+   const updatedTask = await update(id, req.body);
+   return res.status(201).send(updateTask);
 }
 
-export const updateTask = (req: Request, res: Response) => {
-    sequelize.sync().then(() => {
-        res.json({ message: "update Tasks"});
-     }).catch((error) => {
-        console.error('Unable to create table : ', error);
-     });
+export const deleteTask = async (req: Request, res: Response) => {
+   const id = Number(req.params.id);
+   const result = await deleteById(id);
+   return res.status(204).send({
+     success: result
+   })
 }
 
-export const deleteTask = (req: Request, res: Response) => {
-    sequelize.sync().then(() => {
-        res.json({ message: "delete task"});
-     }).catch((error) => {
-        console.error('Unable to create table : ', error);
-     });
-}
-
-export const deleteTasks = (req: Request, res: Response) => {
+export const deleteAllTask = (req: Request, res: Response) => {
     sequelize.sync().then(() => {
         res.json({ message: "delete all tasks by created user "});
      }).catch((error) => {
         console.error('Unable to create table : ', error);
      });
+}
+
+export const getAllTask = async (req: Request, res: Response) => {
+   const filters = req.query
+   const tasks = await getAll(filters)
+   return res.status(200).send(tasks)
+}
+
+export const getTask = async (req: Request, res: Response) => {
+   const id = Number(req.params.id);
+   const task = await getById(id);
+   return res.status(200).send(task);
 }

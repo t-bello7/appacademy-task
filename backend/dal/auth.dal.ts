@@ -1,6 +1,4 @@
-import { Op } from 'sequelize';
 import { User } from '../models';
-
 import { UserOutput, UserInput } from "../models/auth.model"
 
 export const create = async (payload: UserInput): Promise<UserOutput> => {
@@ -24,6 +22,5 @@ export const find =async (payload:UserInput): Promise<UserOutput> => {
             userName: payload.userName
         }
     })
-
     return user
 }

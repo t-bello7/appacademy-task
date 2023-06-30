@@ -9,8 +9,8 @@ interface TaskAttributes {
 	isArchived: Boolean;
 }
 
-interface TaskInput extends Optional<TaskAttributes, 'id'>{}
-interface TaskOutput extends Required<TaskAttributes> {}
+export interface TaskInput extends Optional<TaskAttributes, 'id'>{}
+export interface TaskOutput extends Required<TaskAttributes> {}
 
 class Task extends Model<TaskInput, TaskOutput>implements TaskAttributes {
 	public id!: number

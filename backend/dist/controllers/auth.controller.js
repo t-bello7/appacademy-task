@@ -17,7 +17,6 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth_dal_1 = require("../dal/auth.dal");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     try {
         let user = yield (0, auth_dal_1.find)(req.body);
         console.log(user);
@@ -57,14 +56,13 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const token = jsonwebtoken_1.default.sign({ userName: user.userName }, "dwefwc", {
             expiresIn: 86400
         });
-        console.log(token);
         if (!passwordIsValid) {
             return res.status(401).send({
                 message: "Invalid Password!",
             });
         }
-        //  req.session.token = token;
-        return res.status(200).send({ userName: user.userName });
+        req.session.token = token;
+        return res.status(200).send({ userName: user.userName, token: token });
     }
     catch (error) {
         return res.status(500).send({ message: error.message });

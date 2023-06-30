@@ -1,6 +1,8 @@
 import express, {Express, Request, Response} from "express";
 import bodyParser from "body-parser";
 import 'dotenv/config';
+import cookieParser from "cookie-parser";
+import sessions from "express-session";
 import cors from "cors";
 import { connectDB } from "./config/db.config";
 import authRoutes from "./routes/auth.routes";
@@ -16,6 +18,15 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: 86400 },
+    resave: false
+}));
+
+app.use(cookieParser());
 
 app.use(bodyParser.json());
 

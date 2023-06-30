@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
+  redirect,
   RouterProvider
 } from 'react-router-dom'
 import Home from './pages/Home.tsx'
@@ -14,15 +15,40 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    errorElement: <Error />
+    errorElement: <Error />,
+    loader: async ({ request }) => {
+      const user = localStorage.getItem("userData");
+      if (!user) {
+        throw redirect("/login");
+      }
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
+        signal: request.signal,
+      });
+      const tasks = await res.json();
+      return tasks;
+  }
   },
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
+    loader: async () => {
+      const user = localStorage.getItem("userData");
+      if (user) {
+        return redirect("/")
+      }
+      return(user)
+    }
   },
   {
     path: "/register",
-    element: <Register />
+    element: <Register />,
+    loader: async () => {
+      const user = localStorage.getItem("userData");
+      if (user) {
+        return redirect("/")
+      }
+      return(user)
+    }
   }
 ])
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

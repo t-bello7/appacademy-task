@@ -27,10 +27,11 @@ const Login = () => {
             
             if (userData.status === 200) {
                 // pass the param of user 
-                console.log(result)
-                // return redirect("/");
+                localStorage.setItem("userData", JSON.stringify(result))
+                return redirect("/register");
             }
             setError(["Invalid Credentials"])
+            // return false
         } catch (err) {
             console.log("Error", err);
         } 
@@ -48,7 +49,9 @@ const Login = () => {
 
                 <div> Password </div>
                 <input  className="text-black" name="password" value={formData.password} onChange={handleChange} placeholder="enter password" required />
-
+                {
+                    error.map((err: any, index: any) => (<li key={index}> {err} </li>))
+                }
                 <button className="bg-white text-black w-[50%]" type="submit"> Login </button>
             </form>
             <span> Don't have an account ?  </span> <a href={`/register`}> Sign Up </a>

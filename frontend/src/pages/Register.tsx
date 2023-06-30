@@ -30,14 +30,15 @@ const Register = () => {
                 body: JSON.stringify(formData)
             });
             const result = await userData.json()
-            
+            if (result.message === "User already exist"){
+                setError(["Username already exist"])
+                return false
+            }
             if (userData.status === 200) {
                 // pass the param of user 
                 return redirect("/login");
             }
-            if (result.message === "User already exist"){
-                setError(["Username alread exist"])
-            }
+          
         } catch (err) {
             console.log("Error", err);
         }

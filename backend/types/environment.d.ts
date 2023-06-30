@@ -6,6 +6,8 @@ declare global {
 			PORT?: string;
 			PWD: string;
 			DATABASE_URL: string;
+			FRONTEND_DEV_URL: string;
+			FRONTEND_PROD_URL: string;
 		}
 		interface authRequest extends Request {
 			username: string 

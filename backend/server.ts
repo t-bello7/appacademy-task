@@ -13,8 +13,10 @@ const app: Express = express();
 connectDB();
 dbInit();
 
+const whitelist = [process.env.FRONTEND_DEV_URL, process.env.FRONTEND_PROD_URL]
+
 const corsOptions = {
-	origin: "http://localhost:5000"
+	origin: whitelist
 };
 
 app.use(cors(corsOptions));

@@ -1,30 +1,20 @@
+import { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 
-const todoData: { 
-    id: string,
-    todoText: string,
-    isComplete: boolean,
-    isArchived: boolean,
-    }[]  = [
-    {
-        id: 'd3',
-        todoText: 'Get a job',
-        isComplete: false,
-        isArchived: false
-    },
-    {
-        id: 'd233',
-        todoText: 'Get a job',
-        isComplete: false,
-        isArchived: false
-    }
-]
-
 const TodoContainer = () => {
+    const [tasks, setTasks] = useState([])
+    useEffect(() => {
+        const dataFetch = async () => {
+            const data = await(await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`)).json();
+            setTasks(data)
+        }
+        dataFetch();
+    },[tasks])
+
     return (
         <>
-            {todoData.map((todo: {}) => {
-                return (<TodoItem todo={todo}/>)
+            {tasks.map((todo: {}, index) => {
+                return (<TodoItem key={index} todo={todo}/>)
             })}
         </>
     )

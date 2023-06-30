@@ -3,6 +3,9 @@ import { ReactComponent as DragIcon } from '../assets/icons/dragIcon.svg'
 import { ReactComponent as DeleteIcon } from '../assets/icons/deletIcon.svg'
 
 const TodoItem = ({todo}: any) => {
+  const checkboxhandler = () => {
+
+    }
     return (
     <div 
     key={todo.id} 
@@ -16,7 +19,7 @@ const TodoItem = ({todo}: any) => {
         className='h-4 w-4 md:h-7 md:w-7 mt-auto mb-auto mr-2 ml-2 rounded-full text-[#4d3434] focus:ring-[#757575]'
         id={todo.id}
         checked={todo.isComplete}
-        // onChange={checkboxhandler}
+        onChange={checkboxhandler}
       />
       <div className='text-[#676767] font-light md:font-bold mr-auto p-2 md:text-sm text-[12px]'>
         {todo.todoText}

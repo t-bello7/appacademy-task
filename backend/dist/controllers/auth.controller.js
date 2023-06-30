@@ -29,6 +29,8 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 message: 'Password does not match'
             });
         }
+        res.setHeader('Access-Control-Allow-Credentials', "*");
+        res.setHeader('Access-Control-Allow-Origin', '*');
         yield (0, auth_dal_1.create)({
             userName: req.body.userName,
             password: bcrypt_1.default.hashSync(req.body.password, 8),

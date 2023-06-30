@@ -16,6 +16,8 @@ export const register = async (req: authRequest, res: Response) => {
    return res.status(400).send({
       message: 'Password does not match'
    })}
+   res.setHeader('Access-Control-Allow-Credentials', "*");
+   res.setHeader('Access-Control-Allow-Origin', '*');
    await create({
       userName: req.body.userName,
       password: bcrypt.hashSync(req.body.password, 8),

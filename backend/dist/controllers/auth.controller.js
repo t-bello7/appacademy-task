@@ -52,7 +52,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             });
         }
         const passwordIsValid = bcrypt_1.default.compareSync(req.body.password, user.password);
-        const token = jsonwebtoken_1.default.sign({ userName: user.userName }, "dwefwc", {
+        const token = jsonwebtoken_1.default.sign({ userName: user.userName }, process.env.TOKEN_KEY, {
             expiresIn: 86400
         });
         if (!passwordIsValid) {

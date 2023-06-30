@@ -8,10 +8,7 @@ declare global {
 			DATABASE_URL: string;
 			FRONTEND_DEV_URL: string;
 			FRONTEND_PROD_URL: string;
-		}
-		interface authRequest extends Request {
-			username: string 
-			password: string
+			TOKEN_KEY: string;
 		}
 	}
 }

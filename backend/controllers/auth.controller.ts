@@ -42,7 +42,7 @@ export const login = async (req, res: Response) => {
             req.body.password,
             user.password
           );
-          const token = jwt.sign({ userName: user.userName}, "dwefwc", {
+          const token = jwt.sign({ userName: user.userName}, process.env.TOKEN_KEY, {
             expiresIn: 86400
           })
           if (!passwordIsValid) {

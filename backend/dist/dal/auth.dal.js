@@ -12,27 +12,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.find = exports.findOrCreate = exports.create = void 0;
 const models_1 = require("../models");
 const create = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield models_1.User.create(payload);
-    return user;
+    try {
+        const user = yield models_1.User.create(payload);
+        return user;
+    }
+    catch (error) {
+        return error;
+    }
 });
 exports.create = create;
 const findOrCreate = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const [user] = yield models_1.User.findOrCreate({
-        where: {
-            userName: payload.userName
-        },
-        defaults: payload
-    });
-    return user;
+    try {
+        const [user] = yield models_1.User.findOrCreate({
+            where: {
+                userName: payload.userName
+            },
+            defaults: payload
+        });
+        return user;
+    }
+    catch (error) {
+        return error;
+    }
 });
 exports.findOrCreate = findOrCreate;
 const find = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = yield models_1.User.findOne({
-        where: {
-            userName: payload.userName
-        }
-    });
-    return user;
+    try {
+        const user = yield models_1.User.findOne({
+            where: {
+                userName: payload.userName
+            }
+        });
+        return user;
+    }
+    catch (error) {
+        return error;
+    }
 });
 exports.find = find;
 //# sourceMappingURL=auth.dal.js.map

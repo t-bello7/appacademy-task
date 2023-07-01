@@ -6,7 +6,6 @@ const TodoForm = () => {
     const {taskData, setTaskData} = useContext(TaskContext)
     const [todoText, setTodoText] = useState("")
     const handleChange = (e: any) => {
-        e.preventDefault()
         setTodoText(e.target.value)
     }
     const handleClick = async (e: any) => {
@@ -16,20 +15,17 @@ const TodoForm = () => {
         }
         try {
             const user = localStorage.getItem("userData");
-            console.log(user)
-            console.log(import.meta.env.VITE_BACKEND_URL)
+            console.log(todoText);
             const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     "x-access-token": JSON.parse(user as string).token
                 },
-                body: JSON.stringify({todoText: todoText})
+                body: JSON.stringify({"todoText": todoText})
             });
-            console.log(res)
             const task = await res.json()
-            console.log(task)
-            if(task){
+            if(task.todoText){
                 setTodoText("")
                 setTaskData([...taskData, task])
             }

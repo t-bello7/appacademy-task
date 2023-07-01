@@ -18,31 +18,51 @@ const create = (payload) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.create = create;
 const update = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const task = yield models_1.Task.findByPk(id);
-    if (!task) {
-        throw new Error('Task not found');
+    try {
+        const task = yield models_1.Task.findByPk(id);
+        if (!task) {
+            throw new Error('Task not found');
+        }
+        const updatedTask = yield task.update(payload);
+        return updatedTask;
     }
-    const updatedTask = yield task.update(payload);
-    return updatedTask;
+    catch (error) {
+        return error;
+    }
 });
 exports.update = update;
 const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const task = yield models_1.Task.findByPk(id);
-    if (!task) {
-        throw new Error('Task not found');
+    try {
+        const task = yield models_1.Task.findByPk(id);
+        if (!task) {
+            throw new Error('Task not found');
+        }
+        return task;
     }
-    return task;
+    catch (error) {
+        return error;
+    }
 });
 exports.getById = getById;
 const deleteById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const deleteTaskCount = yield models_1.Task.destroy({
-        where: { id }
-    });
-    return !!deleteTaskCount;
+    try {
+        const deleteTaskCount = yield models_1.Task.destroy({
+            where: { id }
+        });
+        return !!deleteTaskCount;
+    }
+    catch (error) {
+        return error;
+    }
 });
 exports.deleteById = deleteById;
 const getAll = (filters) => __awaiter(void 0, void 0, void 0, function* () {
-    return models_1.Task.findAll(Object.assign({ where: Object.assign({}, ((filters === null || filters === void 0 ? void 0 : filters.isDeleted) && { deletedAt: { [sequelize_1.Op.not]: null } })) }, (((filters === null || filters === void 0 ? void 0 : filters.isDeleted) || filters.includeDeleted) && { paranoid: true })));
+    try {
+        return models_1.Task.findAll(Object.assign({ where: Object.assign({}, ((filters === null || filters === void 0 ? void 0 : filters.isDeleted) && { deletedAt: { [sequelize_1.Op.not]: null } })) }, (((filters === null || filters === void 0 ? void 0 : filters.isDeleted) || filters.includeDeleted) && { paranoid: true })));
+    }
+    catch (error) {
+        return error;
+    }
 });
 exports.getAll = getAll;
 // data to get all task created by author or get all task belonging to user

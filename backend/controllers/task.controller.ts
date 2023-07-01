@@ -43,9 +43,15 @@ export const deleteAllTask = (req: Request, res: Response) => {
 }
 
 export const getAllTask = async (req: Request, res: Response) => {
-   const filters = req.query
-   const tasks = await getAll(filters)
-   return res.status(200).send(tasks)
+   try {
+      const filters = req.query
+      const tasks = await getAll(filters)
+      return res.status(200).send(tasks)
+   } catch (error) {
+      return res.status(500).send({ message: error.message })
+
+   }
+   
 }
 
 export const getTask = async (req: Request, res: Response) => {

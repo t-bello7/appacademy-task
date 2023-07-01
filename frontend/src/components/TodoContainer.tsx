@@ -10,7 +10,9 @@ const TodoContainer = () => {
         const user = localStorage.getItem("userData");
         const dataFetch = async () => {
             const data = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
+                method: "GET",
                 headers:{
+                    'Content-Type': 'application/json' ,
                     "x-access-token": JSON.parse(user as string).token
                 }
             });

@@ -15,7 +15,6 @@ const TodoForm = () => {
         }
         try {
             const user = localStorage.getItem("userData");
-            console.log(todoText);
             const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
                 method: "POST",
                 headers: {

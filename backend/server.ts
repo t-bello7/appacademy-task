@@ -8,11 +8,14 @@ import { connectDB } from "./config/db.config";
 import authRoutes from "./routes/auth.routes";
 import taskRoutes from "./routes/task.routes";
 import dbInit from "./models/init";
+import User from './models/auth.model';
+import sequelize from "./config/db.config";
+import Task from './models/task.model';
 import { verifyToken } from "./middleware/auth.middleware";
 
 const app: Express = express();
 connectDB();
-dbInit();
+sequelize.sync({force: true})
 
 const allowCrossDomain = (req: Request, res: Response, next: NextFunction) => {
     res.header(`Access-Control-Allow-Origin`, `${process.env.FRONTEND_PROD_URL}`);

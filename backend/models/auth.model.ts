@@ -3,16 +3,16 @@ import sequelize from '../config/db.config';
 import Task from './task.model';
 
 interface UserAttributes {
-	userId: number;
+	id: number;
 	userName: string;
 	password: string;
 }
 
-export interface UserInput extends Optional<UserAttributes, 'userId'>{}
+export interface UserInput extends Optional<UserAttributes, 'id'>{}
 export interface UserOutput extends Required<UserAttributes> {}
 
 class User extends Model<UserInput, UserOutput>implements UserAttributes {
-	public userId!: number
+	public id!: number
 	public userName: string
 	public password: string
 
@@ -22,7 +22,7 @@ class User extends Model<UserInput, UserOutput>implements UserAttributes {
 }
 
 User.init({
-	userId: {
+	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
 		primaryKey: true,
@@ -38,10 +38,11 @@ User.init({
 }, {
 	timestamps: true,
 	sequelize: sequelize,
-	paranoid: true
+	paranoid: true,
+	modelName: "users",
 })
 
-User.hasMany(Task)
+User.hasMany(Task, { foreignKey: 'userId'})
 Task.belongsTo(User);
 
 export default User;

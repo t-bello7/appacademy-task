@@ -9,7 +9,7 @@ const task_model_1 = __importDefault(require("./task.model"));
 class User extends sequelize_1.Model {
 }
 User.init({
-    userId: {
+    id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
@@ -25,9 +25,10 @@ User.init({
 }, {
     timestamps: true,
     sequelize: db_config_1.default,
-    paranoid: true
+    paranoid: true,
+    modelName: "users",
 });
-User.hasMany(task_model_1.default);
-task_model_1.default.belongsTo(User, { as: 'User', foreignKey: 'id' });
+User.hasMany(task_model_1.default, { foreignKey: 'userId' });
+task_model_1.default.belongsTo(User);
 exports.default = User;
 //# sourceMappingURL=auth.model.js.map

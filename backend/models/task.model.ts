@@ -1,6 +1,5 @@
 import { DataTypes, Optional, Model } from 'sequelize';
 import sequelize from '../config/db.config';
-import User from './auth.model';
 
 interface TaskAttributes {
 	id: number;
@@ -45,7 +44,8 @@ Task.init({
 }, {
 	timestamps: true,
 	sequelize: sequelize,
-	paranoid: true
+	paranoid: true,
+	modelName: "tasks",
 })
 
 export default Task;

@@ -28,7 +28,8 @@ Task.init({
 }, {
     timestamps: true,
     sequelize: db_config_1.default,
-    paranoid: true
+    paranoid: true,
+    modelName: "tasks",
 });
 exports.default = Task;
 //# sourceMappingURL=task.model.js.map

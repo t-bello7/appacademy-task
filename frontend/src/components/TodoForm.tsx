@@ -23,6 +23,7 @@ const TodoForm = () => {
                 body: JSON.stringify({todoText})
             });
             const task = await res.json()
+            setTodoText("")
             setTaskData([...taskData, task])
         } catch (err) {
             console.log("Error", err);

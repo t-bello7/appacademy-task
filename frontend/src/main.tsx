@@ -17,11 +17,16 @@ const router = createBrowserRouter([
     element: <Home />,
     errorElement: <Error />,
     loader: async () => {
-      const user = localStorage.getItem("userData");
-      if (!user) {
-        throw redirect("/login");
+      try {
+        const user = localStorage.getItem("userData");
+        if (!user) {
+          throw redirect("/login");
+        }
+        return user
+      } catch (error) {
+        return error
       }
-   return user
+      
   }
   },
   {

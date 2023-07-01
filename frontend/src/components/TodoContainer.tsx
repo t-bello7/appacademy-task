@@ -14,8 +14,11 @@ const TodoContainer = () => {
                     "x-access-token": JSON.parse(user as string).token
                 }
             });
-            const userData = await data.json();
-            setTaskData(userData)
+            const dataJson = await data.json();
+            console.log(dataJson)
+            if(dataJson) {
+                setTaskData(dataJson)
+            }
         }
         dataFetch();
     },[])

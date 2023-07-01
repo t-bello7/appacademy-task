@@ -6,6 +6,7 @@ const TodoForm = () => {
     const {taskData, setTaskData} = useContext(TaskContext)
     const [todoText, setTodoText] = useState("")
     const handleChange = (e: any) => {
+        e.preventDefault()
         setTodoText(e.target.value)
     }
     const handleClick = async (e: any) => {

@@ -24,7 +24,7 @@ const TodoForm = () => {
                     "Content-Type": "application/json",
                     "x-access-token": JSON.parse(user as string).token
                 },
-                body: JSON.stringify({todoText})
+                body: JSON.stringify({todoText: todoText})
             });
             console.log(res)
             const task = await res.json()

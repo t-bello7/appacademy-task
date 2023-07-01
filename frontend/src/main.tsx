@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
-  redirect,
   RouterProvider
 } from 'react-router-dom'
 import Home from './pages/Home.tsx'
@@ -15,19 +14,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    errorElement: <Error />,
-  //   loader: async () => {
-  //     try {
-  //       const user = localStorage.getItem("userData");
-  //       if (!user) {
-  //         throw redirect("/login");
-  //       }
-  //       return user
-  //     } catch (error) {
-  //       return error
-  //     }
-      
-  // }
+    errorElement: <Error />
   },
   {
     path: "/login",

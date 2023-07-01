@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Header = () => {
-    
+const Header = () => {  
     const [user, setUser] = useState({
         userName: ''
     })
@@ -13,7 +12,6 @@ const Header = () => {
             setUser(JSON.parse(userData));
         }
     },[])
-
     const handleLogout = async () => {
         await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`, {
             method: "POST",
@@ -24,8 +22,7 @@ const Header = () => {
         localStorage.removeItem("userData");
         return navigate('/login')
     }
-
-        return (
+    return (
     <div className="flex flex-col items-center mb-10 relative">
         <h1 className="underline underline-offset-8 decoration-8"> Today's Task </h1>
         <div className="absolute left-0">

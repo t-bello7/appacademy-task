@@ -13,6 +13,7 @@ const TodoForm = () => {
             return
         }
         try {
+            console.log('get userr data')
             const user = localStorage.getItem("userData");
             const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
                 method: "POST",
@@ -22,7 +23,10 @@ const TodoForm = () => {
                 },
                 body: JSON.stringify({todoText})
             });
+            console.log(res)
             const task = await res.json()
+            console.log(task)
+            setTodoText("")
             setTaskData([...taskData, task])
         } catch (err) {
             console.log("Error", err);

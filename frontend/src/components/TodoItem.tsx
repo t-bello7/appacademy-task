@@ -28,11 +28,15 @@ const TodoItem = ({todo}: any) => {
   }
   const checkboxhandler = async (e: any) => {
     setChecked(e.target.checked);
-    const res = await fetchCall("PATCH", todo.id, "isComplete",!checked)
-    const updateTask = await res.json() 
-    const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
-    taskData[taskIndex] = updateTask
-    setTaskData(taskData)
+    try {
+      const res = await fetchCall("PATCH", todo.id, "isComplete",!checked)
+      const updateTask = await res.json() 
+      const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
+      taskData[taskIndex] = updateTask
+      setTaskData(taskData)
+    } catch (err) {
+      console.log(err);
+    }
   } 
   const handleDeleteTask  = async () => {
       await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/${todo.id}`, {
@@ -62,18 +66,28 @@ const TodoItem = ({todo}: any) => {
 
   const updateEditTask = async (e: any) => {
     if (e.key === 'Enter') {
-    const res = await fetchCall("PATCH", todo.id, "todoText", edit.editTodoText)
-    const updateTask = await res.json() 
-    const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
-    taskData[taskIndex] = updateTask
-    setTaskData(taskData)
-      return
+      try {
+        const res = await fetchCall("PATCH", todo.id, "todoText", edit.editTodoText)
+        const updateTask = await res.json() 
+        const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
+        taskData[taskIndex] = updateTask
+        setTaskData(taskData)
+          return
+      
+      } catch (err){
+        console.log(err)
+      }
     }
-    const res = await fetchCall("PATCH", todo.id, "todoText", edit.editTodoText)
-    const updateTask = await res.json() 
-    const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
-    taskData[taskIndex] = updateTask
-    setTaskData(taskData)
+    try {
+      const res = await fetchCall("PATCH", todo.id, "todoText", edit.editTodoText)
+      const updateTask = await res.json() 
+      const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
+      taskData[taskIndex] = updateTask
+      setTaskData(taskData)
+    } catch(err) {
+      console.log(err);
+    }
+
   }
   useEffect(() => {
     setChecked(todo.isComplete)

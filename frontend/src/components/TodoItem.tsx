@@ -1,30 +1,79 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { TaskContext } from "../pages/Home"
+
 import { ReactComponent as EditIcon } from '../assets/icons/editIcon.svg'
 import { ReactComponent as DragIcon } from '../assets/icons/dragIcon.svg'
 import { ReactComponent as DeleteIcon } from '../assets/icons/deletIcon.svg'
 
+const user = localStorage.getItem("userData");
+const BASE_URL=`${import.meta.env.VITE_BACKEND_URL}/api/tasks/`
+
 const TodoItem = ({todo}: any) => {
+  const {taskData, setTaskData} = useContext(TaskContext)
+  const [edit, setEdit] = useState({
+    editState: false,
+    editTodoText: todo.todoText
+  });
   const [checked, setChecked] = useState(todo.isComplete);
-  const user = localStorage.getItem("userData");
-    const checkboxhandler = async (e: any) => {
-    setChecked(e.target.checked);
-    await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/${todo.id}`, {
-      method: "PATCH", 
+  const fetchCall = async (method:any, url:any, bodyName: any, bodyValue: any) => {
+    const res = await fetch(`${BASE_URL}${url}`, {
+      method, 
       headers:{
           "Content-Type": "application/json",
           "x-access-token": JSON.parse(user as string).token
       },
-      body: JSON.stringify({isComplete: !checked})
+      body: JSON.stringify({[bodyName]: bodyValue})
     })
+    return res;
+  }
+  const checkboxhandler = async (e: any) => {
+    setChecked(e.target.checked);
+    const res = await fetchCall("PATCH", todo.id, "isComplete",!checked)
+    const updateTask = await res.json() 
+    const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
+    taskData[taskIndex] = updateTask
+    setTaskData(taskData)
   } 
   const handleDeleteTask  = async () => {
       await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks/${todo.id}`, {
-      method: "DELETE",
-      headers:{
-          "Content-Type": "application/json",
-          "x-access-token": JSON.parse(user as string).token
-      }
-    })
+        method: "DELETE",
+        headers:{
+            "Content-Type": "application/json",
+            "x-access-token": JSON.parse(user as string).token
+        }
+      })
+      const filterTaskData = taskData.filter(item => item.id != todo.id);
+      setTaskData(filterTaskData);
+  }
+  const handleEditTask = (e: any) => {
+    if (e.target.id === 'edit-icon' || e.target.id === 'todo-box'){
+      setEdit({
+        ...edit,
+        editState: !edit.editState
+      });
+    }
+    if (e.target.name === 'todoText'){
+      setEdit({
+        ...edit,
+        editTodoText: e.target.value
+      });
+    }
+  }
+
+  const updateEditTask = async (e: any) => {
+    if (e.key === 'Enter') {
+    const res = await fetchCall("PATCH", todo.id, "todoText", edit.editTodoText)
+    const updateTask = await res.json() 
+    const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
+    taskData[taskIndex] = updateTask
+    setTaskData(taskData)
+      return
+    }
+    const res = await fetchCall("PATCH", todo.id, "todoText", edit.editTodoText)
+    const updateTask = await res.json() 
+    const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
+    taskData[taskIndex] = updateTask
+    setTaskData(taskData)
   }
   useEffect(() => {
     setChecked(todo.isComplete)
@@ -44,12 +93,20 @@ const TodoItem = ({todo}: any) => {
         checked={checked}
         onChange={checkboxhandler}
       />
-      <div className='text-[#676767] font-light md:font-bold mr-auto p-2 md:text-sm text-[12px]'>
-        {todo.todoText}
-      </div>
+      {
+        edit.editState ?
+        (
+         <input name='todoText' value={edit.editTodoText} onChange={handleEditTask} onBlur={updateEditTask} onKeyDown={updateEditTask} className='w-full'/> 
+        ) : (
+        <div id='todo-box' className='w-full text-[#676767] font-light md:font-bold mr-auto p-2 md:text-sm text-[12px]' onClick={handleEditTask}>
+          {todo.todoText}
+        </div>
+        )
+      }
+  
       <div className='text-[13.5px] md:text-base cursor-pointer md:space-x-12 space-x-4 justify-items-center flex '>
-      <button>
-        <EditIcon />
+      <button onClick={handleEditTask}>
+       <EditIcon />
       </button>
       <button onClick={handleDeleteTask}>
         <DeleteIcon />

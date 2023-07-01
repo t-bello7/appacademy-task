@@ -1,17 +1,20 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { ReactComponent as AddIcon } from "../assets/icons/addIcon.svg"
+import { TaskContext } from "../pages/Home"
 
 const TodoForm = () => {
+    const {taskData, setTaskData} = useContext(TaskContext)
     const [todoText, setTodoText] = useState("")
-
     const handleChange = (e: any) => {
         setTodoText(e.target.value)
     }
-    
     const handleClick = async () => {
+        if (!todoText) {
+            return
+        }
         try {
             const user = localStorage.getItem("userData");
-            const result = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -19,8 +22,8 @@ const TodoForm = () => {
                 },
                 body: JSON.stringify({todoText})
             });
-            const task = await result.json()
-            console.log(task);
+            const task = await res.json()
+            setTaskData([...taskData, task])
         } catch (err) {
             console.log("Error", err);
         } 

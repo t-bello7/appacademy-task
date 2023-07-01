@@ -1,9 +1,11 @@
 import {  useNavigation } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
+import { TaskContext } from "../pages/Home";
 import TodoItem from "./TodoItem";
 
+
 const TodoContainer = () => {
-    const [tasks, setTasks] = useState([])
+    const {taskData, setTaskData} = useContext(TaskContext)
     useEffect(() => {
         const user = localStorage.getItem("userData");
         const dataFetch = async () => {
@@ -13,7 +15,7 @@ const TodoContainer = () => {
                 }
             });
             const userData = await data.json();
-            setTasks(userData)
+            setTaskData(userData)
         }
         dataFetch();
     },[])
@@ -21,7 +23,7 @@ const TodoContainer = () => {
     return (
         <>
          {navigation.state === "loading" && <h1>Loading</h1>}
-            {tasks.map((todo: {}, index: any) => {
+            {taskData.map((todo: {}, index: any) => {
                 return (<TodoItem key={index} todo={todo}/>)
             })}
         </>

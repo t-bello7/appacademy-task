@@ -28,14 +28,14 @@ const TodoForm = () => {
             console.log("Error", err);
         } 
     }
+
     return(
-        <div className="flex justify-between">
+        <div className="flex flex-col items-center gap-1 md:flex-row md:justify-between">
             <div>
-                <h1> Today's Task </h1>
-                <span> Wedneday, 11 May </span>
+                <span>{ new Date().toLocaleString() + "" }</span>
             </div>
 
-            <input name="todoText" value={todoText} onChange={handleChange} placeholder="Enter you new text"/>
+            <input name="todoText" value={todoText} onChange={handleChange} placeholder="Enter you new text" className="w-full h-10"/>
             <button onClick={handleClick} className="flex items-center">
                 <AddIcon />
                 <span>

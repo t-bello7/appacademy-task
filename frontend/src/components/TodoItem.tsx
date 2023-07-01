@@ -105,13 +105,13 @@ const TodoItem = ({todo}: any) => {
       }
   
       <div className='text-[13.5px] md:text-base cursor-pointer md:space-x-12 space-x-4 justify-items-center flex '>
-      <button onClick={handleEditTask}>
+      <button onClick={handleEditTask} type='button'>
        <EditIcon />
       </button>
-      <button onClick={handleDeleteTask}>
+      <button onClick={handleDeleteTask} type='button'>
         <DeleteIcon />
       </button>
-      <button>
+      <button type='button'>
         <DragIcon />
       </button>
       </div>

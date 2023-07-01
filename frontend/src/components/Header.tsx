@@ -26,9 +26,9 @@ const Header = () => {
     }
 
         return (
-    <div className="grid justify-items-center">
+    <div className="flex flex-col items-center mb-10 relative">
         <h1 className="underline underline-offset-8 decoration-8"> Today's Task </h1>
-        <div>
+        <div className="absolute left-0">
             <h2>{user?.userName}</h2>
             <button onClick={handleLogout} type="button"> Logout</button>
         </div>

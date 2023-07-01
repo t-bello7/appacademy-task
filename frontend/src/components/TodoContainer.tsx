@@ -17,7 +17,6 @@ const TodoContainer = () => {
                 }
             });
             const dataJson = await data.json();
-            console.log(dataJson)
             if(dataJson) {
                 setTaskData(dataJson)
             }

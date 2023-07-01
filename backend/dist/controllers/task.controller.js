@@ -57,9 +57,14 @@ const deleteAllTask = (req, res) => {
 };
 exports.deleteAllTask = deleteAllTask;
 const getAllTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const filters = req.query;
-    const tasks = yield (0, task_dal_1.getAll)(filters);
-    return res.status(200).send(tasks);
+    try {
+        const filters = req.query;
+        const tasks = yield (0, task_dal_1.getAll)(filters);
+        return res.status(200).send(tasks);
+    }
+    catch (error) {
+        return res.status(500).send({ message: error.message });
+    }
 });
 exports.getAllTask = getAllTask;
 const getTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

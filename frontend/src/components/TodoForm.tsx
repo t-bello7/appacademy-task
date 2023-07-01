@@ -8,12 +8,15 @@ const TodoForm = () => {
     const handleChange = (e: any) => {
         setTodoText(e.target.value)
     }
-    const handleClick = async () => {
+    const handleClick = async (e: any) => {
+        e.preventDefault()
         if (!todoText) {
             return
         }
         try {
             const user = localStorage.getItem("userData");
+            console.log(user)
+            console.log(import.meta.env.VITE_BACKEND_URL)
             const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/tasks`, {
                 method: "POST",
                 headers: {
@@ -22,7 +25,9 @@ const TodoForm = () => {
                 },
                 body: JSON.stringify({todoText})
             });
+            console.log(res)
             const task = await res.json()
+            console.log(task)
             setTodoText("")
             setTaskData([...taskData, task])
         } catch (err) {

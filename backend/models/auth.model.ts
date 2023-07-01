@@ -42,6 +42,6 @@ User.init({
 })
 
 User.hasMany(Task)
-Task.belongsTo(User, {as: 'User', foreignKey: 'id'});
+Task.belongsTo(User);
 
 export default User;

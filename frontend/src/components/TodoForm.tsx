@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import { ReactComponent as AddIcon } from "../assets/icons/addIcon.svg"
+// import { ReactComponent as AddIcon } from "../assets/icons/addIcon.svg"
 import { TaskContext } from "../pages/Home"
 import CustomButton from "../components/Button"
 

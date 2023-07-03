@@ -1,6 +1,7 @@
 import { useState, useContext } from "react"
-import { ReactComponent as AddIcon } from "../assets/icons/addIcon.svg"
+// import { ReactComponent as AddIcon } from "../assets/icons/addIcon.svg"
 import { TaskContext } from "../pages/Home"
+import CustomButton from "../components/Button"
 
 const TodoForm = () => {
     const {taskData, setTaskData} = useContext(TaskContext)
@@ -40,12 +41,7 @@ const TodoForm = () => {
             </div>
 
             <input name="todoText" value={todoText} onChange={handleChange} placeholder="Enter you new text" className="w-full h-10"/>
-            <button onClick={handleClick} className="flex items-center">
-                <AddIcon />
-                <span>
-                    Add Todo
-                </span>
-            </button>
+            <CustomButton text={"Add Todo"} onClick={handleClick} />
         </div>
     )
 }

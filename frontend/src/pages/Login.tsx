@@ -39,6 +39,7 @@ const Login = () => {
 
     return(
         <AuthLayout>
+            <div>
             <h1> Hello Again </h1>
             <h2> Enter your login details below </h2>
 
@@ -54,6 +55,7 @@ const Login = () => {
                 <button className="bg-white text-black w-[50%]" type="submit"> Login </button>
             </form>
             <span> Don't have an account ?  </span> <a href={`/register`}> Sign Up </a>
+            </div>
         </AuthLayout>
     )
 }

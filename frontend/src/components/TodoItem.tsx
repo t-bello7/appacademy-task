@@ -72,8 +72,7 @@ const TodoItem = ({todo}: any) => {
         const taskIndex = taskData.findIndex(((obj:any) => obj.id === updateTask.id))
         taskData[taskIndex] = updateTask
         setTaskData(taskData)
-          return
-      
+        return
       } catch (err){
         console.log(err)
       }

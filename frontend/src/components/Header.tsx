@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "./Button";
 
 const Header = () => {  
     const [user, setUser] = useState({
@@ -27,7 +28,7 @@ const Header = () => {
         <h1 className="underline underline-offset-8 decoration-8"> Today's Task </h1>
         <div className="absolute left-0">
             <h2>{user?.userName}</h2>
-            <button onClick={handleLogout} type="button"> Logout</button>
+            <CustomButton onClick={handleLogout} text="Logout" />
         </div>
     </div>
     )

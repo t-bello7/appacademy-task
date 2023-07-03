@@ -15,7 +15,7 @@ import { verifyToken } from "./middleware/auth.middleware";
 
 const app: Express = express();
 connectDB();
-sequelize.sync({force: true})
+sequelize.sync({ force: false, alter: true})
 
 const allowCrossDomain = (req: Request, res: Response, next: NextFunction) => {
     res.header(`Access-Control-Allow-Origin`, `${process.env.FRONTEND_PROD_URL}`);
